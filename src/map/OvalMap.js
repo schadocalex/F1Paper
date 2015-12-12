@@ -1,7 +1,7 @@
 var ovalMap = (function() {
     var portionLength = 24,
-        circuitCenter = 15,
-        centerToBorder = 11;
+        centerToBorder = 11,
+        portionWidth = 8;
 
     function Point(x, y) {
         return {x:x,y:y};
