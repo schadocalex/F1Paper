@@ -1,0 +1,23 @@
+{
+  "name": "f1-paper",
+  "version": "0.0.1",
+  "description": "Ludum Dare 34 game",
+  "main": "index.html",
+  "dependencies": {
+    "phaser": "^2.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schadocalex/F1Paper.git"
+  },
+  "author": "Alexis Schad, Nicolas Schad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schadocalex/F1Paper/issues"
+  },
+  "homepage": "https://github.com/schadocalex/F1Paper#readme"
+}
