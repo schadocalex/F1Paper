@@ -15,6 +15,14 @@ function Canvas(w, h, container) {
             ctx.fillStyle = "none";
         },
 
+        getWidth: function() {
+            return cvs.width;
+        },
+
+        getHeight: function() {
+            return cvs.height;
+        },
+
         setColor: function(c) {
             ctx.strokeStyle = c;
         },
@@ -49,7 +57,7 @@ function Canvas(w, h, container) {
         drawSkeleton: function(curve, offset) {
             offset = offset || { x:0, y:0 };
             var pts = curve.points;
-            ctx.strokeStyle = "lightgrey";
+            ctx.strokeStyle = "blue";
             this.drawLine(pts[0], pts[1], offset);
             if(pts.length === 3) { this.drawLine(pts[1], pts[2], offset); }
             else {this.drawLine(pts[2], pts[3], offset); }
