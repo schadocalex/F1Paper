@@ -1,5 +1,8 @@
+var WIDTH = 3862,
+    HEIGHT = 2150;
+
 window.onload = function() {
-    var CircuitCanvas = Canvas(1920*2, 1080*2, world);
+    var CircuitCanvas = Canvas(WIDTH, HEIGHT, world);
 
     var points = [
         new Point(0, 420),

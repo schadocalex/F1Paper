@@ -3,30 +3,11 @@ var Map = (function() {
     function Map(canvas, points) {
         this.canvas = canvas;
         this.curves = [];
+        this.points = points;
 
-        var offset = new Point(canvas.getWidth() / 2, canvas.getHeight() / 2);
-        this.points = points.map(function(point) {
-            return Point.add(point, offset);
-        });
-console.log(offset);
-        canvas.drawLine(
-            Point.add(offset, {
-                x: -20,
-                y: 0
-            }),
-            Point.add(offset, {
-                x: 20,
-                y: 0
-            }));
-        canvas.drawLine(
-            Point.add(offset, {
-                x: 0,
-                y: -20
-            }),
-            Point.add(offset, {
-                x: 0,
-                y: 20
-            }));
+        canvas.setColor("blue");
+        canvas.drawLine(new Point(-20, 0), new Point(20, 0));
+        canvas.drawLine(new Point(0, -20), new Point(0, 20));
 
         computeCurves.call(this);
     }
@@ -46,7 +27,8 @@ console.log(offset);
             j = (i + 1) % points.length;
             pointsMid.push(new Point(
                 (points[i].x+points[j].x) / 2,
-                (points[i].y+points[j].y) / 2
+                (points[i].y+points[j].y) / 2,
+                false
             ));
         }
         for(i = 0; i < points.length; i++) {
