@@ -4,7 +4,7 @@
   "description": "Ludum Dare 34 game",
   "main": "index.html",
   "dependencies": {
-    "phaser": "^2.4.4"
+    "bezier-js": "^1.0.8"
   },
   "devDependencies": {},
   "scripts": {
