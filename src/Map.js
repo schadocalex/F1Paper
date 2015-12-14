@@ -1,14 +1,15 @@
 var Map = (function() {
+    "use strict";
 
-    function Map(canvas, points) {
-        this.canvas = canvas;
+    function Map(params) {
+        params = params || {};
+
+        this.canvas = params.canvas;
         this.curves = [];
-        this.points = points;
+        this.path = params.path;
 
-        canvas.setColor("blue");
-        canvas.drawLine(new Point(-20, 0), new Point(20, 0));
-        canvas.drawLine(new Point(0, -20), new Point(0, 20));
-
+        drawGrid.call(this);
+        this.canvas.setLineWidth(5);
         computeCurves.call(this);
     }
 
@@ -17,7 +18,7 @@ var Map = (function() {
     };
 
     function computeCurves() {
-        var points = this.points,
+        var points = this.path,
             pointsMid = [],
             i, j;
 
@@ -45,40 +46,56 @@ var Map = (function() {
     }
 
     function drawCurveDebug(curve, i) {
-        var canvas = this.canvas;
+        var canvas = this.canvas,
+            outline;
 
         canvas.setColor("rgba(0,0,0,1)");
-        canvas.drawCurve(curve);
-        canvas.drawSkeleton(curve, null, i);
+        canvas.drawCurve(curve, this.offset);
+        canvas.drawSkeleton(curve, this.offset);
         var doc = function(c, j, arr) {
             if(j % (arr.length/2) === 0) { return; }
-            canvas.drawCurve(c);
-        };
+            canvas.drawCurve(c, this.offset);
+        }.bind(this);
 
 
         canvas.getCanvas().getContext("2d").font="30px Arial";
         canvas.drawText(i, {
-            x: this.points[i].x + 20,
-            y: this.points[i].y + 40
-        });
+            x: this.path[i].x + 1,
+            y: this.path[i].y + 1
+        }, this.offset);
 
         //var j = (i + 1) % diff.length;
         //var outline = curve.outline(diff[i]*100,diff[i]*100,diff[j]*100,diff[j]*100);
         //outline.curves.forEach(doc);
 
         canvas.setColor("rgba(255,0,0,0.8)");
-        outline = curve.outline(25,25,25,25);
-        outline.curves.forEach(doc);
-        canvas.setColor("rgba(0,255,0,0.8)");
-        outline = curve.outline(100,100,100,100);
-        outline.curves.forEach(doc);
-        canvas.setColor("rgba(255,200,0,0.8)");
-        outline = curve.outline(75,75,75,75);
+        outline = curve.outline(1,1,1,1);
         outline.curves.forEach(doc);
         canvas.setColor("rgba(255,100,0,0.8)");
-        outline = curve.outline(50,50,50,50);
+        outline = curve.outline(2,2,2,2);
         outline.curves.forEach(doc);
-    };
+        canvas.setColor("rgba(255,200,0,0.8)");
+        outline = curve.outline(3,3,3,3);
+        outline.curves.forEach(doc);
+        canvas.setColor("rgba(0,255,0,0.8)");
+        outline = curve.outline(4,4,4,4);
+        outline.curves.forEach(doc);
+    }
+
+    function drawGrid() {
+        this.canvas.reset();
+        var keepOffset = new Point(OFFSET.x, OFFSET.y);
+        OFFSET = new Point(0, 0);
+        this.canvas.setColor(GRID_COLOR);
+        this.canvas.setLineWidth(1);
+        for(var i = 0; i < NB_TILES_X; i++) {
+            this.canvas.drawLine(new Point(i, 0), new Point(i, NB_TILES_Y));
+        }
+        for(var j = 0; j < NB_TILES_Y; j++) {
+            this.canvas.drawLine(new Point(0, j), new Point(NB_TILES_X, j));
+        }
+        OFFSET = keepOffset;
+    }
 
     return Map;
 

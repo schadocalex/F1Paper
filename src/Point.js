@@ -1,20 +1,16 @@
 var Point = (function() {
-    var offset = {
-        x: WIDTH / 2,
-        y: HEIGHT / 2
-    };
-
-    function Point(x, y, enableOffset) {
+    function Point(x, y, converted) {
         this.x = x;
         this.y = y;
-        if(enableOffset !== false) {
-            this.x += offset.x;
-            this.y += offset.y;
-        }
+        this.converted = !!converted;
     }
 
-    Point.add = function(p1, p2) {
-        return new Point(p1.x + p2.x, p1.y + p2.y, false);
+    Point.prototype.add = function(p) {
+        return new Point(this.x + p.x, this.y + p.y);
+    };
+
+    Point.prototype.sub = function(p) {
+        return new Point(this.x - p.x, this.y - p.y);
     };
 
     return Point;

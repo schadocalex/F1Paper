@@ -1,34 +1,26 @@
 var WIDTH = 4000,
-    HEIGHT = 3000;
+    HEIGHT = 2000,
+    TILE_SIZE = 25,
+    OFFSET = null,
+    GRID_COLOR = "#C8C8C8",
+    NB_TILES_X = Math.ceil(WIDTH/TILE_SIZE),
+    NB_TILES_Y = Math.ceil(WIDTH/TILE_SIZE);
+
+var CircuitCanvas,
+    PlayersCanvas;
+
+var player;
+
+function convertPos(p) {
+    if(p.converted) {
+        return p;
+    }
+    return new Point(p.x * TILE_SIZE + OFFSET.x, p.y * TILE_SIZE + OFFSET.y, true);
+}
 
 window.onload = function() {
-    var CircuitCanvas = Canvas(WIDTH, HEIGHT, world);
+    CircuitCanvas = Canvas(WIDTH, HEIGHT, world);
+    PlayersCanvas = Canvas(WIDTH, HEIGHT, world);
 
-    var points = [
-        new Point(700, 675),
-        new Point(1200, 650),
-        new Point(1350, 400),
-        new Point(1250, 250),
-        new Point(800, 200),
-        new Point(800, -50),
-        new Point(1100, -200),
-        new Point(1400, -300),
-        new Point(1300, -550),
-        new Point(350, -250),
-        new Point(-100, -400),
-        new Point(-200, -100),
-        new Point(-600, -200),
-        new Point(-1100, 200),
-        new Point(-1150, 400),
-        new Point(-950, 550),
-        new Point(-700, 200),
-        new Point(-500, 200),
-        new Point(-400, 500),
-        new Point(-300, 975),
-        new Point(100, 700)
-
-    ];
-
-    var map = new Map(CircuitCanvas, points);
-    map.drawDebug();
+    var game = new Game();
 };
