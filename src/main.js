@@ -6,8 +6,8 @@ var WIDTH = 4000,
     NB_TILES_X = Math.ceil(WIDTH/TILE_SIZE),
     NB_TILES_Y = Math.ceil(WIDTH/TILE_SIZE);
 
-var CircuitCanvas,
-    PlayersCanvas;
+var CircuitLayer,
+    GameLayer;
 
 var player;
 
@@ -19,8 +19,9 @@ function convertPos(p) {
 }
 
 window.onload = function() {
-    CircuitCanvas = Canvas(WIDTH, HEIGHT, world);
-    PlayersCanvas = Canvas(WIDTH, HEIGHT, world);
+    CircuitLayer = Canvas(WIDTH, HEIGHT, world);
+    GameLayer = Canvas(WIDTH, HEIGHT, world);
 
     var game = new Game();
+    game.start();
 };

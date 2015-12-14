@@ -6,6 +6,7 @@ var Camera = (function() {
     }
 
     Camera.prototype.focusPlayer = function(player) {
+        console.log(player);
         var pos = convertPos(player.getPos()),
             width = window.innerWidth,
             height = window.innerHeight;
@@ -25,7 +26,7 @@ var Camera = (function() {
             pos.y = HEIGHT - height;
         }
 
-        this.node.style.transform = "translate(" + pos.x + "px," + pos.y + "px)";
+        this.node.style.transform = "translate(" + (-pos.x) + "px," + (-pos.y) + "px)";
     };
 
     return Camera;
