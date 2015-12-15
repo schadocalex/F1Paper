@@ -22,7 +22,7 @@ function transformToAssocArray( prmstr ) {
 var params = getSearchParameters();
 var MAP_NUM = Math.max(Math.min(params.map ? parseInt(params.map, 10) : 1, 2), 1),
     NB_PLAYERS = Math.max(Math.min(params.players ? parseInt(params.players, 10) : 1, 8), 1),
-    DIFFICULTY = Math.max(Math.min(params.difficulty ? parseInt(params.difficulty, 10) : 3, 4), 0);
+    DIFFICULTY = Math.max(Math.min(params.difficulty ? 5-parseInt(params.difficulty, 10) : 3, 4), 0);
 
 console.log(MAP_NUM, NB_PLAYERS, DIFFICULTY);
 
