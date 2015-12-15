@@ -65,11 +65,12 @@ var Map = (function() {
 
         canvas.setColor("rgba(0,0,0,0.8)");
         canvas.setLineWidth(1);
-        canvas.drawCurve(curve, this.offset);
+        canvas.drawCurve(curve);
         canvas.setLineWidth(5);
         var doc = function(c, j, arr) {
             if(j % (arr.length/2) === 0) { return; }
-            canvas.drawCurve(c, this.offset);
+            canvas.drawCurve(c);
+            minimap.drawCurve(c);
         }.bind(this);
 
         canvas.setColor("rgba(0,0,0,0.8)");
@@ -83,11 +84,11 @@ var Map = (function() {
             outline;
 
         canvas.setColor("rgba(0,0,0,1)");
-        canvas.drawCurve(curve, this.offset);
-        canvas.drawSkeleton(curve, this.offset);
+        canvas.drawCurve(curve);
+        canvas.drawSkeleton(curve);
         var doc = function(c, j, arr) {
             if(j % (arr.length/2) === 0) { return; }
-            canvas.drawCurve(c, this.offset);
+            canvas.drawCurve(c);
         }.bind(this);
 
 
@@ -95,7 +96,7 @@ var Map = (function() {
         canvas.drawText(i, {
             x: this.path[i].x + 1,
             y: this.path[i].y + 1
-        }, this.offset);
+        });
 
         //var j = (i + 1) % diff.length;
         //var outline = curve.outline(diff[i]*100,diff[i]*100,diff[j]*100,diff[j]*100);

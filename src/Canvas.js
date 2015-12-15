@@ -10,6 +10,7 @@ function Canvas(w, h, container, id) {
 
     return {
         getCanvas: function() { return cvs; },
+        getContext: function() { return ctx; },
 
         reset: function() {
             cvs.width = cvs.width;

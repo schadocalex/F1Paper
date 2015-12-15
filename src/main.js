@@ -24,10 +24,9 @@ var MAP_NUM = Math.max(Math.min(params.map ? parseInt(params.map, 10) : 1, 2), 1
     NB_PLAYERS = Math.max(Math.min(params.players ? parseInt(params.players, 10) : 1, 8), 1),
     DIFFICULTY = Math.max(Math.min(params.difficulty ? 5-parseInt(params.difficulty, 10) : 3, 4), 0);
 
-console.log(MAP_NUM, NB_PLAYERS, DIFFICULTY);
-
 var circuitLayer,
     gameLayer,
+    minimap,
     game;
 
 function convertPos(p) {
@@ -35,6 +34,10 @@ function convertPos(p) {
         return p;
     }
     return new Point(p.x * TILE_SIZE + OFFSET.x, p.y * TILE_SIZE + OFFSET.y, true);
+}
+
+function addOffset(p) {
+    return new Point(p.x + OFFSET.x / TILE_SIZE, p.y + OFFSET.y / TILE_SIZE, true);
 }
 
 function convertToUnit(p) {
@@ -47,6 +50,39 @@ function convertToUnit(p) {
 window.onload = function() {
     circuitLayer = Canvas(WIDTH, HEIGHT, world, "circuitLayer");
     gameLayer = Canvas(WIDTH, HEIGHT, world, "gameLayer");
+    minimap = Canvas(WIDTH/TILE_SIZE, HEIGHT/TILE_SIZE, document.body, "minimap");
+
+    minimap.drawCurve = function(curve) {
+        var ctx = this.getContext();
+        ctx.beginPath();
+        var p = curve.points.map(addOffset);
+        ctx.moveTo(p[0].x, p[0].y);
+        if(p.length === 3) {
+            ctx.quadraticCurveTo(
+                p[1].x, p[1].y,
+                p[2].x, p[2].y
+            );
+        }
+        if(p.length === 4) {
+            ctx.bezierCurveTo(
+                p[1].x, p[1].y,
+                p[2].x, p[2].y,
+                p[3].x, p[3].y
+            );
+        }
+        ctx.stroke();
+        ctx.closePath();
+    };
+
+    minimap.drawPath = function(path, cyclic) {
+        path = path.map(addOffset);
+        for(var i = 0; i < path.length - 1; i++) {
+            this.drawLine(path[i], path[i+1]);
+        }
+        if(cyclic === true) {
+            this.drawLine(path[path.length-1], path[0]);
+        }
+    }
 
     game = new Game();
     game.start();

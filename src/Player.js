@@ -8,6 +8,8 @@ var Player = (function() {
         circuitLayer.setLineWidth(2);
         circuitLayer.drawCrosses(path);
         circuitLayer.drawPath(path);
+        minimap.setColor(this.color);
+        minimap.drawPath(path);
     }
 
     function Player(params) {
