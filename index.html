@@ -4,36 +4,39 @@
     <meta charset="UTF-8">
     <title>F1 Paper!</title>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
+    <script>
 
-        #world {
-            position: absolute;
-            background: #eee;
-            transition: transform 500ms ease;
-            color: #ffff00;
-        }
-    </style>
-
-    <script src="node_modules/bezier-js/lib/bezier.js" ></script>
-    <!-- Main file -->
-    <script src="src/main.js" ></script>
-
-    <!-- Classes -->
-    <script src="src/Camera.js" ></script>
-    <script src="src/Canvas.js" ></script>
-    <script src="src/Game.js" ></script>
-    <script src="src/Map.js" ></script>
-    <script src="src/Player.js" ></script>
-    <script src="src/Point.js" ></script>
+    </script>
 </head>
 <body>
-    <div id="world" >
-        <!--<img src="img/F1.png" />-->
-    </div>
+    <h1>F1 Paper!</h1>
+    <p>The game is not finished yet, but you can try playing it!</p>
+    <p>
+        <strong>The main rule is not forced, so you shall follow it:</strong><br />
+            If you <em>go out</em> of the circuit, you have to go on it again,<br/>
+            <strong>but</strong> you have to do it before your leave point.
+            <img src="explain1.png">
+    </p>
+    <form method="get" action="game.html" >
+        Select your map:<br/>
+        <input type="radio" name="map" value="1" checked> Simple map<br/>
+        <input type="radio" name="map" value="2"> Complex map<br/><br/>
+        Select your portion difficulties:<br/>
+        <input type="radio" name="difficulty" value="1"> Easiest<br/>
+        <input type="radio" name="difficulty" value="2" checked> Normal<br/>
+        <input type="radio" name="difficulty" value="3"> Hard<br/>
+        <input type="radio" name="difficulty" value="4"> Alexiest<br/>
+        <input type="radio" name="difficulty" value="5"> Random between the four difficulties<br/><br/>
+        Select number of players:<br/>
+        <input type="radio" name="players" value="1" checked> 1<br/>
+        <input type="radio" name="players" value="2"> 2<br/>
+        <input type="radio" name="players" value="3"> 3<br/>
+        <input type="radio" name="players" value="4"> 4<br/>
+        <input type="radio" name="players" value="5"> 5<br/>
+        <input type="radio" name="players" value="6"> 6<br/>
+        <input type="radio" name="players" value="7"> 7<br/>
+        <input type="radio" name="players" value="8"> 8<br/><br/>
+        <input type="submit" value="Play" />
+    </form>
 </body>
 </html>

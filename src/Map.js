@@ -13,6 +13,19 @@ var Map = (function() {
         computeCurves.call(this);
     }
 
+    Map.prototype.draw = function() {
+        this.difficulties = this.curves.map(function(c, i) {
+            if(i === 0) {
+                return 4;
+            } else if(DIFFICULTY === 0) {
+                return Math.ceil(Math.random() * 4);
+            } else {
+                return DIFFICULTY;
+            }
+        });
+        this.curves.forEach(drawCurve, this);
+    };
+
     Map.prototype.drawDebug = function() {
         this.curves.forEach(drawCurveDebug, this);
     };
@@ -43,6 +56,26 @@ var Map = (function() {
                 pointsMid[j].y
             ));
         }
+    }
+
+    function drawCurve(curve, i) {
+        var canvas = this.canvas,
+            outline,
+            j = (i + 1) % this.difficulties.length;
+
+        canvas.setColor("rgba(0,0,0,0.8)");
+        canvas.setLineWidth(1);
+        canvas.drawCurve(curve, this.offset);
+        canvas.setLineWidth(5);
+        var doc = function(c, j, arr) {
+            if(j % (arr.length/2) === 0) { return; }
+            canvas.drawCurve(c, this.offset);
+        }.bind(this);
+
+        canvas.setColor("rgba(0,0,0,0.8)");
+
+        outline = curve.outline(this.difficulties[i],this.difficulties[i],this.difficulties[j],this.difficulties[j]);
+        outline.curves.forEach(doc);
     }
 
     function drawCurveDebug(curve, i) {

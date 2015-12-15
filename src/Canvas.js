@@ -1,10 +1,12 @@
-function Canvas(w, h, container) {
+function Canvas(w, h, container, id) {
     container = container || document.body;
 
     var cvs = container.appendChild(document.createElement("canvas"));
+    cvs.id = id;
     cvs.width = w;
     cvs.height = h;
     var ctx = cvs.getContext("2d");
+    var mouse = new Point(0, 0, true);
 
     return {
         getCanvas: function() { return cvs; },
@@ -22,6 +24,10 @@ function Canvas(w, h, container) {
 
         getHeight: function() {
             return cvs.height;
+        },
+
+        getMousePos: function() {
+            return mouse;
         },
 
         setColor: function(c) {
@@ -99,17 +105,12 @@ function Canvas(w, h, container) {
             ctx.stroke();
         },
 
-        drawPoint: function(p) {
-            p = convertPos(p);
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, 5, 0, 2*Math.PI);
-            ctx.stroke();
+        drawPoints: function(points) {
+            points.forEach(this.drawPoint, this);
         },
 
-        drawPoints: function(points) {
-            points.forEach(function(p) {
-                this.drawCircle(p, 3);
-            }, this);
+        drawPoint: function(p) {
+            this.drawCircle(p, 3);
         },
 
         drawCrosses: function(points) {
@@ -197,6 +198,18 @@ function Canvas(w, h, container) {
         drawText: function(text, pos) {
             pos = convertPos(pos);
             ctx.fillText(text, pos.x, pos.y);
+        },
+
+        drawRotatedImage: function(image, p, angle) {
+            var x = -(image.width/2),
+                y = -(image.height/2);
+            p = convertPos(p);
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(angle);
+            ctx.globalAlpha = 0.8;
+            ctx.drawImage(image, x, y);
+            ctx.restore();
         }
     };
 }

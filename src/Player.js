@@ -4,10 +4,10 @@ var Player = (function() {
         from = from || 0;
         to = to || this.path.length;
         var path = this.path.slice(from, to);
-        CircuitLayer.setColor(this.color);
-        CircuitLayer.setLineWidth(5);
-        CircuitLayer.drawCrosses(path);
-        CircuitLayer.drawPath(path);
+        circuitLayer.setColor(this.color);
+        circuitLayer.setLineWidth(2);
+        circuitLayer.drawCrosses(path);
+        circuitLayer.drawPath(path);
     }
 
     function Player(params) {
@@ -22,11 +22,16 @@ var Player = (function() {
         return this.path[this.path.length - 1];
     };
 
+    Player.prototype.newPos = function(pos) {
+        this.path.push(pos);
+        drawPath.call(this, this.path.length - 2);
+    };
+
     Player.prototype.getPreviousPos = function() {
         return this.path[this.path.length - 2];
     };
 
-    Player.prototype.getNextPoint = function(type) {
+    Player.prototype.getNextPos = function() {
         var oldPoint = this.getPreviousPos(),
             currentPoint = this.getPos();
 

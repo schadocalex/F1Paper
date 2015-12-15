@@ -1,15 +1,15 @@
-var Camera = (function() {
+var camera = (function() {
     "use strict";
 
-    function Camera(node) {
-        this.node = node;
+    function Camera() {
+
     }
 
-    Camera.prototype.focusPlayer = function(player) {
-        console.log(player);
-        var pos = convertPos(player.getPos()),
-            width = window.innerWidth,
+    Camera.prototype.focusPos = function(pos) {
+        var width = window.innerWidth,
             height = window.innerHeight;
+
+        pos = convertPos(pos);
 
         pos.x -= width / 2;
         pos.y -= height / 2;
@@ -26,8 +26,9 @@ var Camera = (function() {
             pos.y = HEIGHT - height;
         }
 
-        this.node.style.transform = "translate(" + (-pos.x) + "px," + (-pos.y) + "px)";
+        this.worldOffset = new Point(-pos.x, -pos.y, true);
+        this.node.style.transform = "translate(" + this.worldOffset.x + "px," + this.worldOffset.y + "px)";
     };
 
-    return Camera;
+    return new Camera();
 })();
